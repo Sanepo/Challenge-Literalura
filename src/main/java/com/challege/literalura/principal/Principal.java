@@ -166,7 +166,13 @@ public class Principal {
     }
 
     private void mostrarLibrosPorIdioma() {
-        System.out.println("Seleccione un idioma con el cual quiere filtrar su busqueda: ");
+        System.out.println("""
+                Seleccione uno de los cuatro idiomas disponibles con el cual quiere filtrar su búsqueda:
+                        * Español
+                        * Inglés
+                        * Francés
+                        * Portugués
+                """);
         String idiomaSeleccionado;
         try {
             idiomaSeleccionado = teclado.nextLine();
