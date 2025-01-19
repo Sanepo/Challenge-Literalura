@@ -65,7 +65,7 @@ public class Principal {
                     mostrarAutoresRegistrados();
                     break;
                 case 4:
-                    //mostrarAutoresVivosPorAno();
+                    mostrarAutoresVivosPorAno();
                     break;
                 case 5:
                    // mostrarLibrosPorIdioma();
@@ -79,6 +79,8 @@ public class Principal {
         }
 
     }
+
+
 
     private void buscarLibrosPorTitulo() {
         System.out.println("Escribe el nombre del libro que deseas buscar");
@@ -141,5 +143,27 @@ public class Principal {
         autores.stream()
                 .sorted(Comparator.comparing(Autor::getNombre))
                 .forEach(System.out::println);
+    }
+    private void mostrarAutoresVivosPorAno() {
+        System.out.println("Seleccione un año de su autor: ");
+        var fechaSeleccionada = 0;
+        try {
+            fechaSeleccionada = teclado.nextInt();
+            teclado.nextLine();
+        } catch (Exception e) {
+            teclado.nextLine();
+            System.out.println("Seleccione una fecha valida");
+            return;
+        }
+        List<Autor> autorEnFecha = repositorioAutor.consultarAutoresVivosEnFechaSeleccionada(fechaSeleccionada);
+        if (autorEnFecha.isEmpty()) {
+            System.out.println("No hay autores de ese año en la base de datos.");
+        } else {
+            autorEnFecha.stream()
+                    .sorted(Comparator.comparing(Autor::getNombre))
+                    .forEach(System.out::println);
+        }
+
+
     }
 }
