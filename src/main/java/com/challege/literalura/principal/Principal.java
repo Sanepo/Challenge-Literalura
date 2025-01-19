@@ -68,7 +68,7 @@ public class Principal {
                     mostrarAutoresVivosPorAno();
                     break;
                 case 5:
-                   // mostrarLibrosPorIdioma();
+                    mostrarLibrosPorIdioma();
                     break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
@@ -79,8 +79,6 @@ public class Principal {
         }
 
     }
-
-
 
     private void buscarLibrosPorTitulo() {
         System.out.println("Escribe el nombre del libro que deseas buscar");
@@ -165,5 +163,27 @@ public class Principal {
         }
 
 
+    }
+
+    private void mostrarLibrosPorIdioma() {
+        System.out.println("Seleccione un idioma con el cual quiere filtrar su busqueda: ");
+        String idiomaSeleccionado;
+        try {
+            idiomaSeleccionado = teclado.nextLine();
+        } catch (Exception e) {
+            teclado.nextLine();
+            System.out.println("Seleccione una opción valida");
+            return;
+        }
+
+        List<Libro> libroPorIdioma = repositorioLibro.busquedaDeLibrosPorIdioma(idiomaSeleccionado);
+
+        if (libroPorIdioma.isEmpty()) {
+            System.out.println("No hay resultados con esa opción.");
+        } else {
+            libroPorIdioma.stream()
+                    .sorted(Comparator.comparing(Libro::getIdioma))
+                    .forEach(System.out::println);
+        }
     }
 }
