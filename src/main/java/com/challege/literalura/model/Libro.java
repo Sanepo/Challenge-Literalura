@@ -21,7 +21,7 @@ public class Libro {
 
     public Libro(DatosLibro datosLibro) {
         this.titulo = datosLibro.titulo();
-        this.idioma = Lenguaje.fromString(datosLibro.idioma().split(",")[0].trim());;
+        this.idioma = Lenguaje.fromString(datosLibro.idioma().getFirst().trim());
         this.descargas = datosLibro.numeroDescargas();
     }
 
@@ -41,12 +41,19 @@ public class Libro {
         return descargas;
     }
 
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
+
     @Override
     public String toString() {
-        return
-                "Titulo='" + titulo + '\n' +
-                "Autor=" + (autor != null ? autor.getNombre() : "") + "\n" +
-                "Lenguaje=" + idioma + "\n" +
-                "Número de descargas" + descargas + "\n";
+        return  "********* LIBRO ********* \n"+
+                "Titulo= " + titulo + '\n' +
+                "Autor= " + (autor != null ? autor.getNombre() : "") + "\n" +
+                "Lenguaje= " + idioma + "\n" +
+                "Número de descargas= " + descargas + "\n" +
+                "*********************** \n";
     }
+
+
 }

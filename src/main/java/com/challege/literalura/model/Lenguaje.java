@@ -1,10 +1,10 @@
 package com.challege.literalura.model;
 
 public enum Lenguaje {
-    ESPANOL("es","Español"),
-    INGLES("en","Inglés"),
-    FRANCES("fr","Francés"),
-    PORTUGUES("pt","Portugués");
+    Español("es", "español"),
+    Inglés("en", "inglés"),
+    Francés("fr", "francés"),
+    Portugués("pt", "portugués");
 
 
     private String idiomaAPIGutendex;

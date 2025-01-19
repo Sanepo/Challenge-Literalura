@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.OptionalInt;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Autores")
@@ -11,6 +12,7 @@ public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+    @Column(unique = true)
     private String nombre;
     private Integer fechaNacimiento;
     private Integer fechaMuerte;
@@ -20,10 +22,12 @@ public class Autor {
     public Autor(){
 
     }
-    public Autor(DatosAutor datosAutor) {
-        this.nombre = datosAutor.nombre();
-        this.fechaNacimiento = OptionalInt.of(datosAutor.fechaNacimiento()).orElse(0);
-        this.fechaMuerte = OptionalInt.of(datosAutor.fechaMuerte()).orElse(0);
+    public Autor(DatosLibro datosLibro) {
+        this.nombre = datosLibro.autor().getFirst().nombre();
+        //this.fechaNacimiento = OptionalInt.of(datosLibro.autor().getFirst().fechaNacimiento()).orElse(0);
+        //this.fechaMuerte = OptionalInt.of(datosLibro.autor().getFirst().fechaMuerte()).orElse(0);
+        this.fechaNacimiento = datosLibro.autor().getFirst().fechaNacimiento();
+        this.fechaMuerte = datosLibro.autor().getFirst().fechaMuerte();
     }
 
     public String getNombre() {
@@ -42,12 +46,19 @@ public class Autor {
         return libros;
     }
 
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
+    }
+
     @Override
     public String toString() {
-        return
-                "Autor='" + nombre + '\'' +
-                ", FechaNacimiento=" + fechaNacimiento +
-                ", FechaFallecimiento=" + fechaMuerte +
-                ", Libros= [ " + libros + " ]";
+        return  "********* AUTOR ********* \n" +
+                "Nombre= " + nombre + '\n' +
+                "FechaNacimiento= " + fechaNacimiento + "\n"+
+                "FechaFallecimiento= " + fechaMuerte + "\n"+
+                "Libros= [ " + libros.stream()
+                        .map(Libro::getTitulo)
+                        .collect(Collectors.joining(", ")) + " ]" +"\n"
+                +"************************ \n";
     }
 }
